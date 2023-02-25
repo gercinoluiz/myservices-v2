@@ -1,0 +1,80 @@
+// import { AxiosResponse } from 'axios'
+// import * as Google from 'expo-auth-session/providers/google'
+// import React, {
+//      createContext,
+//      ReactNode,
+//      useContext,
+//      useEffect,
+//      useState,
+// } from 'react'
+// import api from '../../services/api'
+
+// interface GoogleProviderProps {
+//      children: ReactNode
+// }
+
+// interface IGoogleData {
+//      sigInWithGoogle: () => Promise<void>
+//      userResponse: IUserApiResponse | undefined
+//      // logOut: () => Promise<void>
+// }
+
+// const GoogleContext = createContext({} as IGoogleData)
+
+// export const GoogleProvider = ({ children }: GoogleProviderProps) => {
+//      const [request, response, promptAsync] = Google.useAuthRequest({
+//           expoClientId: process.env.CLIENT_ID,
+//      })
+
+//      const [userResponse, setUserResponse] = useState<
+//           IUserApiResponse | undefined
+//      >()
+
+//      // Checkin the auth status => I use UseEffect in order to update the response
+//      useEffect(() => {
+//           if (response?.type === 'success') {
+//                const { authentication } = response
+
+//                // As the search for the user is an async functiopn, I gotta get it out of useEffect
+//                handleUser(authentication?.accessToken)
+//           }
+//      }, [response])
+
+//      // Gettign user Info
+//      const handleUser = async (accessToken: string | undefined) => {
+//           // Getting user from backEnd
+
+//           try {
+//                const response = await api.post(`/users/create`, {
+//                     provider: 'google',
+//                     accessToken,
+//                })
+
+//                console.log('0. googleProvider/SigInWithGoogle', {})
+
+//                setUserResponse(response.data.data)
+//           } catch (error) {
+//                console.log({ error })
+//           }
+//      }
+
+//      const sigInWithGoogle = async () => {
+//           // It need to await everything be done to continue, this is way I use await in promptAsync
+
+//           await promptAsync()
+
+//           console.log('1. googleProvider/SigInWithGoogle', { response })
+//      }
+
+//      return (
+//           <GoogleContext.Provider value={{ sigInWithGoogle, userResponse }}>
+//                {children}
+//           </GoogleContext.Provider>
+//      )
+// }
+
+// export function useGoogleProvider() {
+//      const context = useContext(GoogleContext)
+
+//      return context
+// }

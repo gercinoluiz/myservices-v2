@@ -1,0 +1,5 @@
+# 01. I can save each type of location in a diferente locations state, so that I don't need to make a new requesto to the API each time I need to change my locations
+
+# 02. My GeoCodingAPI is enabled for all -  whatch out - change it as soon as possible
+
+# 03. When Fixing, use navigation.navigate + modals + Viwes instead of react bottom navigator; you cant use two navigators
