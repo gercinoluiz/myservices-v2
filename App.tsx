@@ -16,34 +16,42 @@ import { navigationRef } from './src/routes/RootNavigation.routes'
 import { useLocations } from './src/hooks/LocationHook'
 import { Dimensions } from 'react-native'
 
+import { NativeBaseProvider } from "native-base";
+import { nativebaseTheme } from './src/style/nativebaseTheme'
+
+
 // import * as Updates from 'expo-updates'
 
 export default function App() {
 
-     const deviceWidth = Dimensions.get('window').width;
-
-          console.log({deviceWidth})
-  
-
 
      return (
           <ThemeProvider theme={lightTheme}>
-               <AppProvider>
-                    <SafeAreaProvider>
-                         <NavigationContainer ref={navigationRef}>
-                              <StatusBar
-                                   style='light'
-                                   backgroundColor={'#363636'}
-                                   
-                              />
-                              {/* <MyHeader /> */}
-                              <NavigationRoutes />
+               <NativeBaseProvider theme={nativebaseTheme}>
 
-                              <ServiceModal />
-                              <DetailedLocation />
-                         </NavigationContainer>
-                    </SafeAreaProvider>
-               </AppProvider>
+                    <AppProvider>
+                         <SafeAreaProvider style={{ flex: 1, backgroundColor: 'white' }}>
+                              <NavigationContainer ref={navigationRef}>
+                                   <StatusBar
+                                        style='light'
+                                        backgroundColor={'#363636'}
+
+                                        hidden
+
+
+
+                                   />
+
+                                   {/* <MyHeader /> */}
+                                   <NavigationRoutes />
+
+                                   <ServiceModal />
+                                   <DetailedLocation />
+                              </NavigationContainer>
+                         </SafeAreaProvider>
+                    </AppProvider>
+               </NativeBaseProvider>
+
           </ThemeProvider>
      )
 }

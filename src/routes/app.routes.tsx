@@ -4,9 +4,11 @@ import {
      Feather,
      FontAwesome,
      FontAwesome5,
+     Ionicons,
 } from '@expo/vector-icons'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+
+
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -26,10 +28,11 @@ import { MyHeader } from '../components/MyHeader'
 import { Tutorial } from '../components/Tutorial'
 import ServiceModal from '../components/ServiceModal'
 import { Dimensions, TextInput } from 'react-native'
+import { User } from '../pages/User'
 
 const Stack = createStackNavigator()
 
-const Bottom = createMaterialBottomTabNavigator()
+const Bottom = createBottomTabNavigator()
 
 const Drawer = createDrawerNavigator()
 
@@ -60,39 +63,40 @@ function DrawerNavigator() {
      )
 }
 const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
 
 const BottomNavigator = () => {
      return (
           <Bottom.Navigator
-               shifting
-               initialRouteName='Lista'
-               style={{
-                    backgroundColor: '#000'
+
+
+               // BOTTOMTAB
+
+               screenOptions={{
+                    headerShown: false,
+                    tabBarActiveTintColor: pallete.onPrimary2,
+                    tabBarInactiveTintColor: '#BDBDBD',
+                    tabBarIconStyle: {
+                         color: pallete.secondary
+                    },
+                    tabBarActiveBackgroundColor: pallete.secondary,
+
+
+
+                    tabBarStyle: {
+                         backgroundColor: pallete.primary,
+                         height: deviceHeight * 0.08
+                    }
                }}
-               activeColor={pallete.onPrimary2}
 
 
-    
 
-               inactiveColor={pallete.onPrimary}
-               barStyle={{ backgroundColor: pallete.primary, }}
+
 
 
 
           >
-               {/* <Bottom.Screen
-                    name='Home'
-                    options={{
-                         tabBarIcon: ({ color }) => (
-                              <FontAwesome5
-                                   name='home'
-                                   size={22}
-                                   color={color}
-                              />
-                         ),
-                    }}
-                    component={Home}
-               /> */}
+
                <Bottom.Screen
 
                     name='Mapa'
@@ -120,8 +124,10 @@ const BottomNavigator = () => {
                                    name='building'
                                    size={24}
                                    color={color}
+
                               />
                          ),
+
                     }}
                     component={List}
                />
@@ -150,6 +156,21 @@ const BottomNavigator = () => {
                     component={About}
                />
 
+
+               <Bottom.Screen
+                    name='User'
+                    options={{
+                         tabBarIcon: ({ color }) => (
+                              <Feather name="user" size={24} color={pallete.onPrimary} />
+
+
+                         ),
+                    }}
+
+                    component={User}
+
+               />
+
                {/* <Bottom.Screen name='Tutorial' component={Tutorial} /> */}
           </Bottom.Navigator>
      )
@@ -171,8 +192,8 @@ function NavigationRoutes() {
                }}
                initialRouteName='Splash'
           >
-               <Stack.Screen name='Drawer' component={DrawerNavigator} />
-               <Stack.Screen name='Splash' component={Splash} />
+               {/* <Stack.Screen name='Drawer' component={DrawerNavigator} />
+               <Stack.Screen name='Splash' component={Splash} /> */}
                <Stack.Screen
                     name='BottomNavigator'
                     component={BottomNavigator}

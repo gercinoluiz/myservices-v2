@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
           height: Dimensions.get('window').height,
           width: Dimensions.get('window').width,
           marginTop: 2,
+          justifyContent:'center'
      },
 
      logoView: {

@@ -8,5 +8,23 @@ export const Container = styled.View`
 
      
 
-     height: 23px;
+     height: 50px;
+
+     background-color: ${({ theme }) => theme.colors.primary};
+
+     justify-content:center;
+
+     display:flex;
+
+     
+
+     
 `
+
+export const IconContainer = styled.View`
+     
+margin-left:10px;
+
+     
+`
+

@@ -22,7 +22,7 @@ const pallete = {
 
      onSurfaceLight: '#2B3040',
 
-     contrast: ' #ffc107',
+     contrast: '#ffc107',
 
      backgroundlight: '#FFFF',
 
