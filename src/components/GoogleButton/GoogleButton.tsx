@@ -8,18 +8,18 @@ const deviceHeight = Dimensions.get('window').height;
 
 
 interface GoogleButtonProps {
-
+    onPress?:(props?:any)=> void
 }
 
 
-export function GoogleButton ({...rest}:GoogleButtonProps){
+export function GoogleButton ({onPress, ...rest}:GoogleButtonProps){
 
    return (
-    <HStack  w='80%'borderWidth={1} h={deviceHeight * 0.07}  marginTop={'1'} borderColor={'gray.300'} justifyContent='center' alignItems={'center'} padding={2}>
+    <HStack  w='100%' borderWidth={1} h={deviceHeight * 0.07}  marginTop={'1'} borderColor={'gray.300'} justifyContent='center' alignItems={'center'} padding={2}>
         <Image alt="Login com google" size={30} source={googleLogo}/>
 
         
-        <Button  variant={'ghost'}  >Login com Google</Button>
+        <Button  onPress={onPress} variant={'ghost'}  >Login com Google</Button>
     </HStack>
    )
 

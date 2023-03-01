@@ -19,16 +19,18 @@ import About from '../pages/About'
 import Contact from '../pages/Contact'
 import List from '../pages/List'
 import Map from '../pages/Map'
-import Login from '../pages/SignUp'
+// import Login from '../pages/SignUp.old'
 import pallete from '../style/pallete'
-import Sigin from '../pages/SignIn'
+// import Sigin from '../pages/SignIn.old'
 import { Splash } from '../pages/Splash'
 import { Home } from '../pages/Home'
 import { MyHeader } from '../components/MyHeader'
 import { Tutorial } from '../components/Tutorial'
 import ServiceModal from '../components/ServiceModal'
 import { Dimensions, TextInput } from 'react-native'
-import { User } from '../pages/User'
+import { SignUp } from '../pages/SignUp'
+import User from '../pages/User'
+import { SignIn } from '../pages/SignIn'
 
 const Stack = createStackNavigator()
 
@@ -57,12 +59,12 @@ function DrawerNavigator() {
                     name='BottomNavigator'
                     component={BottomNavigator}
                />
-               <Drawer.Screen name='Login' component={Login} />
-               <Drawer.Screen name='Sigin' component={Sigin} />
+               {/* <Drawer.Screen name='Login' component={Login} /> */}
+               {/* <Drawer.Screen name='Sigin' component={Sigin} /> */}
           </Drawer.Navigator>
      )
 }
-const deviceWidth = Dimensions.get('window').width;
+// const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 const BottomNavigator = () => {
@@ -71,6 +73,7 @@ const BottomNavigator = () => {
 
 
                // BOTTOMTAB
+               initialRouteName='SignIn'
 
                screenOptions={{
                     headerShown: false,
@@ -158,6 +161,20 @@ const BottomNavigator = () => {
 
 
                <Bottom.Screen
+                    name='SignIn'
+                    options={{
+                         tabBarIcon: ({ color }) => (
+                              <Feather name="user" size={24} color={pallete.onPrimary} />
+
+
+                         ),
+                    }}
+
+                    component={SignIn}
+
+               />
+
+               <Bottom.Screen
                     name='User'
                     options={{
                          tabBarIcon: ({ color }) => (
@@ -197,6 +214,10 @@ function NavigationRoutes() {
                <Stack.Screen
                     name='BottomNavigator'
                     component={BottomNavigator}
+               />
+                    <Stack.Screen
+                    name='SignUp'
+                    component={SignUp}
                />
           </Stack.Navigator>
      )

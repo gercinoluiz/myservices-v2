@@ -5,117 +5,98 @@ const styles = StyleSheet.create({
      mainView: {
           flex: 1,
           alignItems: 'center',
-          backgroundColor: pallete.backgroundlight,
+          backgroundColor: pallete.background,
           height: Dimensions.get('window').height,
           width: Dimensions.get('window').width,
-          marginTop: 2,
+          marginTop:4,
      },
 
-     logoView: {
+     selectedServiceView: {
+          flexDirection: 'row',
+          marginVertical: 10,
+          width: Dimensions.get('window').width ,
+
+          backgroundColor: pallete.backgroundlight,
+
+          alignItems: 'center',
+          // borderRadius: 8,
+          borderBottomColor: pallete.secondary,
+          borderBottomWidth: 4,
+     },
+     selectedService: {
+          color: pallete.secondary,
+          fontSize: 18,
+          fontWeight: 'bold',
+          marginLeft: 10,
+          marginRight: 'auto',
+
+          maxWidth: Dimensions.get('window').width - 50,
+
+          padding: 4,
+     },
+
+     selectedServiceIndicator: {
+          color: pallete.typography.h1,
+          fontSize: 18,
+          fontWeight: 'bold',
+          marginLeft: 10,
+          marginRight: 'auto',
+          marginBottom: 10,
+          maxWidth: Dimensions.get('window').width - 20,
+          maxHeight: 44,
+     },
+     divider: {
+          height: 5,
+          borderBottomColor: pallete.primaryLight,
+          borderTopColor: pallete.primaryLight,
+          borderBottomWidth: 1,
+          // borderTopWidth: 1,
+          marginBottom: 10,
+
+          width: Dimensions.get('window').width - 20,
+     },
+
+     noresultsView: {
           justifyContent: 'center',
           alignItems: 'center',
      },
 
-     logoImage: {
+     noResultsText: {
+          fontWeight: 'bold',
+          fontSize: 18,
+          color: pallete.primary,
+     },
+
+     keepSearchingText: {
+          fontSize: 16,
+          color: pallete.primaryLight,
+          textAlign: 'center',
+          marginTop: 5,
+     },
+
+     sadImage: {
           resizeMode: 'contain',
           justifyContent: 'center',
-          width: 120,
-          height: 100,
-          marginTop: 3,
-     },
-
-     descriptionView: {
-          maxWidth: 300,
-          marginTop: 10,
-          alignItems: 'center',
-     },
-     descriptionText: {
-          color: pallete.primary,
-          fontSize: 22,
-          textAlign: 'center',
-          marginTop: 10,
-          fontWeight: 'bold',
-     },
-
-     fieldsView: {
-          marginTop: 1,
-     },
-
-     fieldsViewTextTitle: {
-          color: pallete.onSecondary,
-          fontSize: 18,
-          fontWeight: 'bold',
-     },
-
-     fieldsViewTextBox: {
-          borderBottomColor: pallete.primary,
-          backgroundColor: pallete.backgroundlight,
-          borderBottomWidth: 1,
-          marginTop: 5,
+          width: 60,
           height: 40,
-     },
-     fieldsViewInputTextBoxMesage: {
-          borderBottomColor: pallete.primary,
-          backgroundColor: pallete.backgroundlight,
-          borderBottomWidth: 1,
-          height: 80,
-     },
-     sendButton: {
-          height: 50,
-          width: 300,
-          backgroundColor: pallete.secondary,
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginBottom: 10,
-          marginTop:30,
-          borderRadius: 8,
+          marginTop: 20,
      },
 
-     sendButtonText: {
-          color: pallete.onSecondary,
-          fontSize: 18,
-          fontWeight: 'bold',
-          marginTop: 3,
-     },
-
-     loginWithGoogleButton: {
-
- 
+     clearFilterButton: {
           
-
-
-          color: pallete.onPrimary,
-          fontSize: 18,
-          fontWeight: 'bold',
-          marginTop: 3,
-          flexDirection: 'row',
-          
-          alignItems: 'center',
-          height: 50,
-
-          // borderColor:'#000',
-
-          // borderWidth: 0.2,
-      
-          backgroundColor:'#fae0e0',
-
-          borderRadius: 8,
-          
-
+          marginLeft: 'auto',
      },
 
-     loginWithGoogleButtonText: {
-          marginLeft: 40,
-          color: '#f48585',
-          fontSize:20,
-          
+     iconsView:{
+          flexDirection:'row',
+          marginLeft: 'auto',
+          marginRight:10,
+          marginTop:2,
+          height:30
      },
-     loginWithGoogleIcon:{
-          marginLeft:10,
-          color: '#f48585',
-
+     icons:{
+          padding:3,
      }
-
 })
 
 export default styles

@@ -50,10 +50,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                if (response?.type === 'success') {
                     const { authentication } = response
 
+              
+
                     // As the search for the user is an async functiopn, I gotta get it out of useEffect
                     handleUserSignUp(authentication?.accessToken)
                }
-          } else if (event == 'signIn') {
+          } else if (event === 'signIn') {
                if (response?.type === 'success') {
                     const { authentication } = response
 
@@ -76,6 +78,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                // console.log('2. googleProvider/SigInWithGoogle', {})
 
                const { user: userResponse, token } = response.data.data
+
+            
 
                setUser(userResponse)
 
@@ -113,7 +117,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                console.log({ userResponse, token, user })
 
                if (response.data) {
-                    console.log('3. userAuth/SigUp', {
+                    console.log('3. userAuth/Sig', {
                          user,
                     })
 

@@ -7,20 +7,21 @@ import { ButtonProps, Dimensions, Pressable } from "react-native";
 const deviceHeight = Dimensions.get('window').height;
 
 
-interface EntrarButton
- {
+interface EntrarButton {
+
+   onPress?:(props?:any)=> void
 
 }
 
 
-export function EntrarButton ({...rest}:EntrarButton){
+export function EntrarButton ({onPress, ...rest}:EntrarButton){
 
    return (
     
         
 
         
-        <Button bgColor={'colors.secondary'}  w='80%' h={deviceHeight * 0.07} >Entrar</Button>
+        <Button bgColor={'colors.secondary'} onPress={onPress} w='100%' h={deviceHeight * 0.07} >Entrar</Button>
     
    )
 

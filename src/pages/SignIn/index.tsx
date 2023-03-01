@@ -1,32 +1,17 @@
-import * as Device from 'expo-device'
-import { Formik } from 'formik'
 import React from 'react'
-import {
-     Alert,
-     GestureResponderEvent,
-     Image,
-     Text,
-     TextInput,
-     TouchableOpacity,
-     View,
-} from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Alert, GestureResponderEvent } from 'react-native'
+
+
+import { Formik } from 'formik'
+import { Box, Center, Flex, Image, Text, Button } from 'native-base'
 import * as yup from 'yup'
-import logoPrefeitura from '../../assets/meditation.png'
-import api from '../../services/api'
-import styles from './styles'
-
+import { CustomInput } from '../../components/CustomInput/CustomInput'
+import { EntrarButton } from '../../components/EntrarButton/EntrarButton'
+import { GoogleButton } from '../../components/GoogleButton/GoogleButton'
 import { useAuthentication } from '../../hooks/authHook/UserHook'
-import { AntDesign, MaterialIcons } from '@expo/vector-icons'
-import pallete from '../../style/pallete'
+import api from '../../services/api'
+import logo from './logo.png'
 
-export interface SiginProps {}
-
-// name: '',
-// email: '',
-
-// phone: '',
-// message: ''
 
 const submitMessageFormValidator = yup.object().shape({
      password: yup.string().required('Nome Obrigatório'),
@@ -48,120 +33,138 @@ const successAlert = () =>
           ]
      )
 
-const Sigin: React.FC<SiginProps> = (props:any) => {
+export function SignIn(props: any) {
+
+     //================USER===================
+
+   
+
      const { signIn } = useAuthentication()
+
+     // const { register, handleSubmit, formState: { errors }, reset } = useForm({
+     //      resolver: yupResolver(submitMessageFormValidator),
+     //      defaultValues: {
+     //           email: '',
+     //           password: ''
+     //      }
+     // });
+
+
 
      const handleLogin = (provider: TProvider) => {
           signIn(provider)
      }
 
+
+
      return (
-          //TODO: Consertar com FlatList: Não acho como fazer em typescript
+          <Center flex={1} bgColor='#fff'>
+               <Image alt="Entrar" w='90%' mt='-10' h='40%' resizeMode="contain" source={logo} />
 
-          <View style={styles.mainView}>
-               <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={styles.descriptionView}>
-                         {/* <Image
-                              style={styles.logoImage}
-                              source={logoPrefeitura}
-                         /> */}
 
-                         <MaterialIcons
-                              name='login'
-                              size={84}
-                              style={{ marginTop: 20 }}
-                              color={pallete.primary}
-                         />
 
-                         <Text style={styles.descriptionText}>Faça seu login</Text>
-                    </View>
 
-                    <Formik
-                         validationSchema={submitMessageFormValidator}
-                         initialValues={{
-                              password: '',
-                              email: '',
-                         }}
-                         onSubmit={async (
-                              { password, email },
-                              { resetForm }
-                         ) => {
-                              await api.post('/feedbackmessages/create', {
-                                   password,
+               <Formik
+                    validationSchema={submitMessageFormValidator}
+                    initialValues={{
+                         password: '',
+                         email: '',
+                    }}
+                    onSubmit={async (
+                         { password, email },
+                         { resetForm }
+                    ) => {
+                         await api.post('/feedbackmessages/create', {
+                              password,
 
-                                   email,
-                              })
+                              email,
+                         })
 
-                              resetForm()
-                              successAlert()
-                         }}
-                    >
-                         {(formikprops) => (
-                              <View style={styles.fieldsView}>
-                                   <TextInput
-                                        placeholder='Email'
-                                        style={styles.fieldsViewTextBox}
-                                        onChangeText={formikprops.handleChange(
-                                             'email'
-                                        )}
-                                        value={formikprops.values.email}
-                                   />
-
-                                   {formikprops.errors && (
-                                        <Text
-                                             style={{
-                                                  fontSize: 10,
-                                                  color: 'red',
-                                             }}
-                                        >
-                                             {formikprops.errors.email}
-                                        </Text>
+                         resetForm()
+                         successAlert()
+                    }}
+               >
+                    {(formikprops) => (
+                         <Center w='80%'>
+                              <Text bold fontSize={'30'} ml='1' mr='auto'>
+                                   Entrar
+                              </Text>
+                              <CustomInput iconName='user' placeholder='Email'
+                                   onChangeText={formikprops.handleChange(
+                                        'email'
                                    )}
 
-                                   <TextInput
-                                        placeholder='Senha'
-                                        style={styles.fieldsViewTextBox}
-                                        onChangeText={formikprops.handleChange(
-                                             'password'
-                                        )}
-                                        value={formikprops.values.password}
-                                        caretHidden={
-                                             Device.manufacturer === 'Xiaomi'
-                                                  ? true
-                                                  : false
-                                        }
-                                   />
+                                   value={formikprops.values.email}
+                              />
 
-                                   <TouchableOpacity
-                                        style={styles.sendButton}
-                                        onPress={(e: GestureResponderEvent) => {
-                                             formikprops.handleSubmit()
+                              {formikprops.errors && (
+                                   <Text
+                                        style={{
+                                             fontSize: 10,
+                                             color: 'red',
                                         }}
                                    >
-                                        <Text style={styles.sendButtonText}>
-                                             Entrar{' '}
+                                        {formikprops.errors.email}
+                                   </Text>
+                              )}
+
+                              <CustomInput
+                                   iconName='lock'
+                                   placeholder='Senha'
+                                   type='password'
+
+                                   onChangeText={formikprops.handleChange(
+                                        'password'
+                                   )}
+                                   value={formikprops.values.password}
+                              //  caretHidden={
+                              //       Device.manufacturer === 'Xiaomi'
+                              //            ? true
+                              //            : false
+                              //  }
+                              />
+                              <Box mt='10' />
+                              <EntrarButton
+                                   onPress={(e: GestureResponderEvent) => {
+                                        formikprops.handleSubmit()
+                                   }}
+                              />
+                              <GoogleButton
+
+                                   onPress={() => {
+                                        handleLogin('google');
+                                        props.navigation.navigate('User')
+                                        // console.log('teste')
+                                   }}
+                              />
+
+                              <Flex mt='4' w='100%' align={'center'}  direction='row' justify={'center'}>
+                                   
+                                        <Text fontSize={'lg'}>
+                                             Não tem uma conta?
                                         </Text>
-                                   </TouchableOpacity>
-                              </View>
-                         )}
-                    </Formik>
-                    <TouchableOpacity
-                         style={styles.loginWithGoogleButton}
-                         onPress={() => {handleLogin('google');  props.navigation.navigate('Lista')}}
-                    >
-                         <AntDesign
-                              style={styles.loginWithGoogleIcon}
-                              name='google'
-                              size={24}
-                              color='black'
-                         />
-                         <Text style={styles.loginWithGoogleButtonText}>
-                              Entrar com Google
-                         </Text>
-                    </TouchableOpacity>
-               </ScrollView>
-          </View>
+                                        <Button variant={'ghost'} onPress={()=>{
+                                        props.navigation.navigate('SignUp')
+                                             
+                                        }}>
+                                        <Text padding={0} ml='-2' fontSize={'lg'} bold color='colors.primary'>
+                                             Cadastre-se
+                                        </Text>
+                                        </Button>
+                                        
+                                   
+                              </Flex>
+
+
+
+                         </Center>
+                    )}
+               </Formik>
+
+
+
+
+          </Center>
      )
 }
 
-export default Sigin

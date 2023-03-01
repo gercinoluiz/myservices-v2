@@ -1,213 +1,185 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text } from 'react-native'
-import {
-     Entypo,
-     Feather,
-     MaterialCommunityIcons,
-     MaterialIcons,
-} from '@expo/vector-icons'
-import {
-     DrawerContentScrollView,
-     DrawerItem,
-     useDrawerStatus,
-} from '@react-navigation/drawer'
-import { isEmpty } from 'lodash'
+import React from 'react';
+import { Dimensions, View } from "react-native";
+import { ScrollView } from 'react-native-gesture-handler';
+import logoPrefeitura from '../../assets/logoPrefeitura.png';
+import GooglePlacesInput from '../../components/GooglePlacesInput';
 
-import {
-     Avatar,
-     Caption,
-     Drawer,
-     Paragraph,
-     Title,
-     TouchableRipple,
-} from 'react-native-paper'
+import { MaterialIcons } from '@expo/vector-icons';
 
-import { useAuthentication } from '../../hooks/authHook/UserHook'
-import { asyncStorageUser } from '../../hooks/authHook/userStorage'
-import { useTheme } from '../../hooks/ThemeHook'
-import pallete from '../../style/pallete'
-import styles from './styles'
-import { GoogleButton } from '../../components/GoogleButton/GoogleButton'
-import { Box, Center, Image, VStack } from 'native-base'
-import { EntrarButton } from '../../components/EntrarButton/EntrarButton'
+import pallete from '../../style/pallete';
 
-import logo from './logo.png'
-import { CustomInput } from '../../components/CustomInput/CustomInput'
+import medalImage from './assets/medal.png'
+import customerService from './assets/customer-service.png'
+import serviceImage from './assets/service.png'
+import star from './assets/star.png'
+import goal from './assets/goal.png'
+import gold from './assets/gold.png'
 
-export function User() {
-     //====================USER======================
-     const { user, updateUser } = useAuthentication()
+import { IconButton, Box, Center, Divider, Flex, HStack, Text, VStack, Image, Icon } from 'native-base';
+import AvatarWithCompletion from './AvatarWithCompletion';
+import { GamingItemButton } from './GamingItemButton/GamingItemButton';
+import { useAuthentication } from '../../hooks/authHook/UserHook';
+import { asyncStorageUser } from '../../hooks/authHook/userStorage';
+import { Entypo } from '@expo/vector-icons';
 
 
 
-     // useEffect(() => {
-     //      handleGetUser()
-     // }, [isDrawerOpen])
+export interface UserProps {
 
-     // const handleGetUser = async () => {
-     //      const response = await asyncStorageUser.getUser()
-
-     //      if (response) {
-     //           updateUser(response)
-     //      }
-     // }
-
-     // const handleLogout = () => {
-     //      asyncStorageUser.removeUser()
-
-     //      updateUser(undefined)
-
-     //      props.navigation.closeDrawer()
-     // }
-
-     //===================THEME=====================
-
-
-
-     // const loggedUser = () => {
-     //      if (!isEmpty(user) && user !== undefined) {
-     //           // console.log('IT WORKS!', { user })
-
-     //           return (
-     //                <View style={styles.userInfoSection}>
-     //                     <View style={styles.userInfoView}>
-     //                          <Avatar.Image
-     //                               source={{
-     //                                    uri: user.avatarUrl,
-     //                               }}
-     //                               size={70}
-     //                          />
-     //                          <View style={styles.userInfoViewText}>
-     //                               <TouchableRipple
-     //                                    onPress={() =>
-     //                                         props.navigation.navigate('Login')
-     //                                    }
-     //                               >
-     //                                    <Title style={styles.title}>
-     //                                         {user.name}
-     //                                    </Title>
-     //                               </TouchableRipple>
-
-     //                               <Caption style={styles.caption}>
-     //                                    {user.contact_info?.email}
-     //                               </Caption>
-     //                          </View>
-     //                     </View>
-
-     //                     {/* <View style={styles.row}>
-     //                          <View style={styles.section}>
-     //                               <Paragraph
-     //                                    style={[
-     //                                         styles.paragraph,
-     //                                         styles.caption,
-     //                                    ]}
-     //                               >
-     //                                    Nível 🥇
-     //                               </Paragraph>
-     //                          </View>
-     //                          <View style={styles.section}>
-     //                               <Paragraph
-     //                                    style={[
-     //                                         styles.paragraph,
-     //                                         styles.caption,
-     //                                    ]}
-     //                               >
-     //                                    🪙 100
-     //                               </Paragraph>
-     //                               <Caption style={styles.caption}>
-     //                                    Pontos
-     //                               </Caption>
-     //                          </View>
-     //                     </View> */}
-     //                </View>
-     //           )
-     //      } else {
-     //           // console.log('FUCK!', { user })
-     //           return (
-     //                <View style={styles.userInfoSection}>
-     //                     <View style={styles.userInfoView}>
-     //                          {/* <Avatar.Image
-     //                               source={avatar}
-     //                               size={70}
-     //                               style={{ backgroundColor: '#fff' }}
-     //                          /> */}
-     //                          <View style={styles.userInfoViewText}></View>
-     //                     </View>
-
-     //                     {/* <View style={styles.row}>
-     //                          <View style={styles.section}>
-     //                               <Paragraph
-     //                                    style={[
-     //                                         styles.paragraph,
-     //                                         styles.caption,
-     //                                    ]}
-     //                               >
-     //                                    Nível 🥇 *
-     //                               </Paragraph>
-     //                          </View>
-     //                          <View style={styles.section}>
-     //                               <Paragraph
-     //                                    style={[
-     //                                         styles.paragraph,
-     //                                         styles.caption,
-     //                                    ]}
-     //                               >
-     //                                     100
-     //                               </Paragraph>
-     //                               <Caption style={styles.caption}>
-     //                                    Pontos *
-     //                               </Caption>
-     //                          </View>
-     //                     </View> */}
-     //                </View>
-     //           )
-     //      }
-     // }
-
-     // const subscriptionView = () => {
-     //      if (isEmpty(user) || user === undefined) {
-     //           return (
-     //                <View style={styles.loginView}>
-     //                     <TouchableRipple
-     //                          onPress={() => props.navigation.navigate('Sigin')}
-     //                          style={styles.touchableRippleLogin}
-     //                     >
-     //                          <Text style={styles.touchableRippleLoginText}>
-     //                               Entrar
-     //                          </Text>
-     //                     </TouchableRipple>
-
-     //                     <TouchableRipple
-     //                          onPress={() => props.navigation.navigate('Login')}
-     //                          style={styles.touchableRippleSubscribe}
-     //                     >
-     //                          <Text style={styles.touchableRippleSubscribeText}>
-     //                               Cadastrar
-     //                          </Text>
-     //                     </TouchableRipple>
-     //                </View>
-     //           )
-     //      }
-     // }
-
-     return (
-          <Center flex={1} bgColor='#fff'>
-
-
-
-
-               <Image alt="Login com google" w='90%' mt='-10' h='40%' resizeMode="contain" source={logo} />
-               <CustomInput iconName='user' placeholder='Usuário'  />
-               <CustomInput iconName='lock'  
-  placeholder='Senha' secureTextEntry/>
-
-               <Center mt='8' w='100%'>
-                    <EntrarButton />
-                    <GoogleButton />
-               </Center>
-
-
-
-          </Center>
-     )
 }
+
+
+
+
+const User: React.FC<UserProps> = (props: any) => {
+
+    const { user, updateUser } = useAuthentication()
+
+    const handleLogout = () => {
+        asyncStorageUser.removeUser()
+
+        updateUser(undefined)
+
+        props.navigation.navigate('SignIn')
+    }
+
+
+    return (
+
+
+        //TODO: Consertar com FlatList: Não acho como fazer em typescript
+
+
+        <Flex alignItems={'center'} flex={1}
+
+
+            bg={{
+                linearGradient: {
+                    colors: ['#373B44', '#4286f4'],
+                    start: [0, 0],
+                    end: [1, 0]
+                }
+            }}
+        >
+
+
+            <Flex w='100%' mt='5' direction='row' justifyContent={'space-between'} align='center'>
+                <Center>
+
+                    <IconButton
+
+                        icon={<MaterialIcons name="logout" size={35} color="#FFF" />}
+
+                        onPress={handleLogout}
+
+                    />
+                    <Text color='white' mt='-2'>Sair</Text>
+                </Center>
+
+                <Image source={gold} size={50} alt='nível' mr='5' />
+            </Flex>
+
+
+
+            <AvatarWithCompletion name={user?.name} source={{
+                uri: user?.avatarUrl
+            }} percentage={50} />
+
+            <Text bold color={'white'} fontSize={'30'}>
+                {user?.name}
+            </Text>
+            <Text color={'white'}>
+                {user?.email}
+            </Text>
+            <Text color={'white'}>
+                97/100
+            </Text>
+
+
+            <Center mt='4' bg='white' w={'100%'} roundedTopLeft='40' flex={1} roundedTopRight='40'>
+
+
+                <HStack
+
+
+                    w='90%'
+                    space={10}
+
+                    flexWrap="wrap"
+                    justifyContent={'center'}
+
+                >
+
+
+                    <GamingItemButton name='Pontos' text='10'
+
+                        src={medalImage}
+                    />
+
+                    <GamingItemButton name='Serviços' text='35'
+
+                        src={customerService}
+                    />
+
+                    <GamingItemButton name='Perfil' text='55'
+
+                        src={serviceImage}
+                    />
+
+
+
+
+
+
+
+
+                </HStack>
+
+                <HStack
+
+
+                    w='90%'
+                    space={10}
+
+                    flexWrap="wrap"
+                    justifyContent={'center'}
+
+                >
+
+
+                 
+
+                    <GamingItemButton name='Nível' text='5'
+
+                        src={star}
+                    />
+                    <GamingItemButton name='Objetivo' text='35%'
+
+                        src={goal}
+                    />
+                    <GamingItemButton name='Objetivo' text='35%'
+
+                        src={goal}
+                    />
+
+
+
+
+
+
+
+                </HStack>
+            </Center>
+
+
+        </Flex>
+
+
+
+
+
+    );
+}
+
+export default User;
+

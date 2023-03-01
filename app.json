@@ -5,7 +5,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.semespdev.esportessp",
+      "package": "com.prodamdev.aquisp",
       "versionCode": 1,
       "config": {
         "googleMaps": {
@@ -14,9 +14,9 @@
       },
       "userInterfaceStyle": "light"
     },
-    "name": "Esportes SP_DEV",
-    "slug": "esportesspdev",
-    "scheme": "com.semespdev.esportessp",
+    "name": "AquiSP",
+    "slug": "aquisp",
+    "scheme": "com.prodamdev.aquisp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

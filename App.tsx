@@ -18,7 +18,14 @@ import { Dimensions } from 'react-native'
 
 import { NativeBaseProvider } from "native-base";
 import { nativebaseTheme } from './src/style/nativebaseTheme'
+const LinearGradient = require('expo-linear-gradient').LinearGradient;
 
+const config = {
+     dependencies: {
+       'linear-gradient': LinearGradient
+     }
+   };
+   
 
 // import * as Updates from 'expo-updates'
 
@@ -27,7 +34,7 @@ export default function App() {
 
      return (
           <ThemeProvider theme={lightTheme}>
-               <NativeBaseProvider theme={nativebaseTheme}>
+               <NativeBaseProvider theme={nativebaseTheme} config={config}>
 
                     <AppProvider>
                          <SafeAreaProvider style={{ flex: 1, backgroundColor: 'white' }}>

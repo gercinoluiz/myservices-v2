@@ -168,7 +168,7 @@ interface IUser {
      name?: string
      password?: string
      address?: {}
-
+email?:string
      contact_info?: {
           mobile?: string
           phone?: string
