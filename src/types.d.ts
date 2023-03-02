@@ -43,6 +43,8 @@ interface ILocationsObjectType {
      services: [
           {
                service: IService
+               name:string
+               
                workingTime: [
                     {
                          weekDay: string
@@ -168,7 +170,7 @@ interface IUser {
      name?: string
      password?: string
      address?: {}
-email?:string
+     email?:string
      contact_info?: {
           mobile?: string
           phone?: string

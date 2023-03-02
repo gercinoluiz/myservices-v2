@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Alert, GestureResponderEvent } from 'react-native'
 
 
@@ -10,7 +10,9 @@ import { EntrarButton } from '../../components/EntrarButton/EntrarButton'
 import { GoogleButton } from '../../components/GoogleButton/GoogleButton'
 import { useAuthentication } from '../../hooks/authHook/UserHook'
 import api from '../../services/api'
-import logo from './logo.png'
+import logo from './logo-1.png'
+import logo2 from './logo-2.png'
+
 
 
 const submitMessageFormValidator = yup.object().shape({
@@ -33,33 +35,38 @@ const successAlert = () =>
           ]
      )
 
+
+
+
 export function SignIn(props: any) {
 
-     //================USER===================
-
-   
-
-     const { signIn } = useAuthentication()
-
-     // const { register, handleSubmit, formState: { errors }, reset } = useForm({
-     //      resolver: yupResolver(submitMessageFormValidator),
-     //      defaultValues: {
-     //           email: '',
-     //           password: ''
-     //      }
-     // });
 
 
 
-     const handleLogin = (provider: TProvider) => {
-          signIn(provider)
+
+     const { signIn, signUp, changeEvent } = useAuthentication()
+
+     const [entrar, setEntrar] = useState(true)
+
+
+
+     const handleLogin = (provider: TProvider, event: string) => {
+
+          if (event === 'signIn') {
+               changeEvent('signIn')
+               signIn(provider)
+          } else if (event === 'signUp') {
+               changeEvent('signUp')
+               signUp(provider)
+          }
+
      }
 
 
 
      return (
           <Center flex={1} bgColor='#fff'>
-               <Image alt="Entrar" w='90%' mt='-10' h='40%' resizeMode="contain" source={logo} />
+               <Image alt="Entrar" w='90%' mt='-10' h='40%' resizeMode="contain" source={logo2} />
 
 
 
@@ -74,7 +81,7 @@ export function SignIn(props: any) {
                          { password, email },
                          { resetForm }
                     ) => {
-                         await api.post('/feedbackmessages/create', {
+                         await api.post('/users/signup', {
                               password,
 
                               email,
@@ -87,7 +94,7 @@ export function SignIn(props: any) {
                     {(formikprops) => (
                          <Center w='80%'>
                               <Text bold fontSize={'30'} ml='1' mr='auto'>
-                                   Entrar
+                                   {entrar ? 'Entrar' : 'Cadastrar'}
                               </Text>
                               <CustomInput iconName='user' placeholder='Email'
                                    onChangeText={formikprops.handleChange(
@@ -132,27 +139,29 @@ export function SignIn(props: any) {
                               <GoogleButton
 
                                    onPress={() => {
-                                        handleLogin('google');
-                                        props.navigation.navigate('User')
+                                        handleLogin('google', entrar ? 'signIn' : 'signUp')
+                                        // props.navigation.navigate('User')
                                         // console.log('teste')
-                                   }}
-                              />
+                                   }} name={entrar ? 'Entrar com Google': 'Cadastrar com Google'} />
 
-                              <Flex mt='4' w='100%' align={'center'}  direction='row' justify={'center'}>
+                              <Flex mt='4' w='100%' align={'center'} direction='row' justify={'center'}>
+
+                                   <Text fontSize={'lg'}>
+                                        {entrar ? 'Não tem uma conta?' : 'Ou faça'}
+                                   </Text>
                                    
-                                        <Text fontSize={'lg'}>
-                                             Não tem uma conta?
-                                        </Text>
-                                        <Button variant={'ghost'} onPress={()=>{
-                                        props.navigation.navigate('SignUp')
-                                             
-                                        }}>
+                                   <Button variant={'ghost'} onPress={() => {
+                                        // props.navigation.navigate('SignUp')
+
+                                        setEntrar(!entrar)
+
+                                   }}>
                                         <Text padding={0} ml='-2' fontSize={'lg'} bold color='colors.primary'>
-                                             Cadastre-se
+                                             {entrar ? 'Cadastre-se' : 'Login'}
                                         </Text>
-                                        </Button>
-                                        
-                                   
+                                   </Button>
+
+
                               </Flex>
 
 
@@ -164,7 +173,7 @@ export function SignIn(props: any) {
 
 
 
-          </Center>
-     )
+          </Center>)
+
 }
 

@@ -22,6 +22,10 @@ interface AuthData {
      signUp: (provider: TProvider) => Promise<void>
      signIn: (provider: TProvider) => Promise<void>
      updateUser: (updatedUser: IUser | undefined) => void
+
+     changeEvent: (event: TEvent) => void
+     event: TEvent
+
 }
 
 type TEvent = 'signIn' | 'signUp'
@@ -30,27 +34,38 @@ const AuthContext = createContext({} as AuthData)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
 
-   
+
 
      const [request, response, promptAsync] = Google.useAuthRequest({
-          expoClientId:process.env.EXPO_CLIENT_ID,
-          androidClientId:process.env.ANDROID_CLIENT_ID,
-          
-          
-          
+          expoClientId: process.env.EXPO_CLIENT_ID,
+          androidClientId: process.env.ANDROID_CLIENT_ID,
+
+
+
      })
 
      const [user, setUser] = useState<IUser | undefined>()
 
-     const [event, setEvent] = useState<TEvent>()
+     const [event, setEvent] = useState<TEvent>('signIn')
+
+     const changeEvent = (gottenEvent: TEvent) => {
+          setEvent(gottenEvent)
+     }
 
      // Checkin the auth status => I use UseEffect in order to update the response
      useEffect(() => {
+
+
+
+
+
+          getUser() 
+
           if (event === 'signUp') {
                if (response?.type === 'success') {
                     const { authentication } = response
 
-              
+
 
                     // As the search for the user is an async functiopn, I gotta get it out of useEffect
                     handleUserSignUp(authentication?.accessToken)
@@ -64,6 +79,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                }
           }
      }, [response])
+
+     async function getUser() {
+
+          const gottenUser = await asyncStorageUser.getUser();
+          if (gottenUser) {
+
+               setUser(gottenUser);
+          }
+     }
 
      // Gettign user Info
      const handleUserSignUp = async (accessToken: string | undefined) => {
@@ -79,11 +103,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
                const { user: userResponse, token } = response.data.data
 
-            
+
 
                setUser(userResponse)
 
-               console.log({ userResponse, token, user })
+
 
                if (response.data) {
                     console.log('3. userAuth/SigUp', {
@@ -99,7 +123,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
      // Gettign user Info
      const handleUserSigIn = async (accessToken: string | undefined) => {
-          console.log({ event })
+
 
           // Getting user from backEnd
           try {
@@ -114,7 +138,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
                setUser(userResponse)
 
-               console.log({ userResponse, token, user })
+
 
                if (response.data) {
                     console.log('3. userAuth/Sig', {
@@ -133,7 +157,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                case 'google':
                     // Call google promptAsync
                     await promptAsync()
-                    setEvent('signUp')
+
 
                     break
                case 'apple':
@@ -152,7 +176,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                case 'google':
                     // Call google promptAsync
                     await promptAsync()
-                    setEvent('signIn')
+
 
                     break
                case 'apple':
@@ -171,7 +195,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
      }
 
      return (
-          <AuthContext.Provider value={{ user, signUp, updateUser, signIn }}>
+          <AuthContext.Provider value={{ user, signUp, updateUser, signIn, changeEvent, event }}>
                {children}
           </AuthContext.Provider>
      )

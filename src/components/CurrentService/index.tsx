@@ -32,7 +32,7 @@ export function CurrentService() {
                <View>
                     <SelectedService>
                          <SelectedServiceIndicator>
-                              {service ? 'Atividade: ' : 'Atividade: '}
+                              {service ? 'Serviço: ' : 'Serviço: '}
                          </SelectedServiceIndicator>
                          {service?.name
                               ? service.name

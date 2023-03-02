@@ -33,6 +33,7 @@ const ServiceModal: React.FC<ServiceModalProps> = (props: any) => {
      const handleSetFocus = () => {
           searchInputRef.current?.focus()
      }
+
      const {
           fetchLocationsPassingItem,
           fetchLocationsWithCoordinates,
@@ -45,7 +46,7 @@ const ServiceModal: React.FC<ServiceModalProps> = (props: any) => {
           IService[] | any
      >()
 
-     const { services, changeService, service } = useServices()
+     const { services, changeService, service, fetchServices } = useServices()
 
      const [showIsOnlineAlert, setShowIsOnlineAlert] = useState(false)
      const [selectedItem, setSelectedItem] = useState<IService>()
@@ -160,6 +161,8 @@ const ServiceModal: React.FC<ServiceModalProps> = (props: any) => {
           }
      }
 
+
+
      return (
           <Modal
                style={styles.modal}
@@ -208,7 +211,7 @@ const ServiceModal: React.FC<ServiceModalProps> = (props: any) => {
                                    />
                                    <TextInput
                                         style={styles.dropDownListTextInput}
-                                        placeholder='Escolha uma atividade'
+                                        placeholder='Qual serviço'
                                         value={inputText}
                                         ref={searchInputRef}
                                         onChange={(
@@ -227,17 +230,24 @@ const ServiceModal: React.FC<ServiceModalProps> = (props: any) => {
                               style={styles.flatListView}
                               nativeID='FlatList Services'
                          >
+                              
                               <FlatList
                                    data={
                                         filteredServicesArray
+
                                              ? filteredServicesArray
                                              : services
                                    }
                                    keyExtractor={(item) => item._id}
                                    renderItem={({ item }) =>
-                                        item.active && flatListRenderItem(item)
+                                         flatListRenderItem(item)
                                    }
                               ></FlatList>
+
+
+                              {/* {services.map(item=>{
+                                   return <Text>{item.name}</Text>
+                              })} */}
                          </View>
                     </View>
 

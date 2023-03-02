@@ -1,8 +1,8 @@
 import * as SecureStore from 'expo-secure-store'
 // import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const secureStorageUserKey = '_meulazer-user'
-const secureStorageTokenKey = '_meulazer-token'
+const secureStorageUserKey = '_aquiSP-user'
+const secureStorageTokenKey = '_aquiSP-token'
 
 export const asyncStorageUser = {
      removeUser: async () => {
@@ -24,6 +24,8 @@ export const asyncStorageUser = {
           } catch (error) {
                console.log('getUser', { error })
           }
+
+    
 
           return formattedResponse
      },

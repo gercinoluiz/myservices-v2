@@ -40,7 +40,7 @@ const User: React.FC<UserProps> = (props: any) => {
 
         updateUser(undefined)
 
-        props.navigation.navigate('SignIn')
+        // props.navigation.navigate('SignIn')
     }
 
 

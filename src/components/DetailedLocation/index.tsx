@@ -14,10 +14,12 @@ import {
      Image,
      Linking,
      ScrollView,
-     Text,
+     
      TouchableOpacity,
      View,
 } from 'react-native'
+
+import {Text, Flex, Box} from 'native-base'
 import Modal from 'react-native-modal'
 import { createOpenLink } from 'react-native-open-maps'
 import { useImageModal } from '../../hooks/ImageModalHook'
@@ -366,76 +368,13 @@ const DetailedLocation = () => {
                               >
                                    {detailedLocation.services?.map(
                                         (item, index) => {
-                                             if (item.service) {
+                                          
                                                   return (
-                                                       <SelectedActivitiesContainer
-                                                            key={index}
-                                                       >
-                                                            <ListContainer>
-                                                                 <ListAccordionActivities
-                                                                      title={
-                                                                           item
-                                                                                ?.service
-                                                                                ?.name
-                                                                      }
-                                                                      style={{
-                                                                           backgroundColor:
-                                                                                '#FFF',
-                                                                      }}
-                                                                      right={() => (
-                                                                           <></>
-                                                                      )}
-                                                                      expanded={
-                                                                           false
-                                                                      }
-                                                                 >
-                                                                      {item.workingTime?.map(
-                                                                           (
-                                                                                item,
-                                                                                index
-                                                                           ) => {
-                                                                                return (
-                                                                                     <ListAccordionWeekDay
-                                                                                          title={
-                                                                                               item?.weekDay
-                                                                                          }
-                                                                                          style={{
-                                                                                               backgroundColor:
-                                                                                                    '#f7f7f7',
-                                                                                          }}
-                                                                                          key={
-                                                                                               index
-                                                                                          }
-                                                                                     >
-                                                                                          {item?.hours
-                                                                                               ?.map(
-                                                                                                    (
-                                                                                                         item,
-                                                                                                         index
-                                                                                                    ) => {
-                                                                                                         return (
-                                                                                                              <HourText
-                                                                                                                   key={
-                                                                                                                        index
-                                                                                                                   }
-                                                                                                              >{`Das: ${item.start} às: ${item.end}`}</HourText>
-                                                                                                         )
-                                                                                                    }
-                                                                                               )
-                                                                                               .sort()}
-                                                                                     </ListAccordionWeekDay>
-                                                                                )
-                                                                           }
-                                                                      )}
-                                                                 </ListAccordionActivities>
-                                                            </ListContainer>
-
-                                                            {/*<Text>{JSON.stringify(item, null, 2)}</Text> */}
-                                                       </SelectedActivitiesContainer>
+                                                       <Box key={index} borderBottomColor={'gray.200'} borderBottomWidth={1} w='90%' ml='2'>
+                                                            <Text bold fontSize="md" textTransform={'uppercase'} isTruncated maxW="90%" >{item.name}</Text>
+                                                       </Box>
                                                   )
-                                             } else {
-                                                  return <Text>{item}</Text>
-                                             }
+                                           
                                         }
                                    )}
                               </ScrollView>

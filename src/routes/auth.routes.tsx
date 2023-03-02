@@ -2,11 +2,8 @@ import {
      AntDesign,
      Entypo,
      Feather,
-     FontAwesome,
-     FontAwesome5,
-     Ionicons,
+     FontAwesome
 } from '@expo/vector-icons'
-import { createDrawerNavigator } from '@react-navigation/drawer'
 
 
 
@@ -14,7 +11,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { useTheme } from 'styled-components'
-import { DrawerMenu } from '../components/DrawerMenu'
 import About from '../pages/About'
 import Contact from '../pages/Contact'
 import List from '../pages/List'
@@ -22,51 +18,21 @@ import Map from '../pages/Map'
 // import Login from '../pages/SignUp.old'
 import pallete from '../style/pallete'
 // import Sigin from '../pages/SignIn.old'
-import { Splash } from '../pages/Splash'
-import { Home } from '../pages/Home'
+import { Dimensions } from 'react-native'
 import { MyHeader } from '../components/MyHeader'
-import { Tutorial } from '../components/Tutorial'
-import ServiceModal from '../components/ServiceModal'
-import { Dimensions, TextInput } from 'react-native'
+import { useAuthentication } from '../hooks/authHook/UserHook'
+import { SignIn } from '../pages/SignIn'
 
 import User from '../pages/User'
-import { SignIn } from '../pages/SignIn'
-import { useAuthentication } from '../hooks/authHook/UserHook'
 
 const Stack = createStackNavigator()
 
 const Bottom = createBottomTabNavigator()
 
-// const Drawer = createDrawerNavigator()
 
-// function DrawerNavigator() {
-//      const theme = useTheme()
-//      return (
-//           <Drawer.Navigator
-//                initialRouteName='BottomNavigator'
-//                drawerContent={(props) => <DrawerMenu {...props} />}
-//                screenOptions={{
-//                     headerStyle: {
-//                          backgroundColor: theme.colors.primary,
-//                     },
-//                     headerTintColor: theme.colors.primary,
-//                     headerTitleStyle: {
-//                          color: theme.colors.primary,
-//                     },
-//                     headerShown: false,
-//                }}
-//           >
-//                <Drawer.Screen
-//                     name='BottomNavigator'
-//                     component={BottomNavigator}
-//                />
-//                {/* <Drawer.Screen name='Login' component={Login} /> */}
-//                {/* <Drawer.Screen name='Sigin' component={Sigin} /> */}
-//           </Drawer.Navigator>
-//      )
-// }
-// const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
+
+
 
 const Routes = () => {
 
@@ -78,7 +44,7 @@ const Routes = () => {
 
 
                // BOTTOMTAB
-               initialRouteName={'SignIn'}
+               initialRouteName={'User'}
 
                screenOptions={{
                     headerShown: false,
@@ -165,8 +131,11 @@ const Routes = () => {
                />
 
 
+
+
+
                <Bottom.Screen
-                    name='SignIn'
+                    name='User'
                     options={{
                          tabBarIcon: ({ color }) => (
                               <Feather name="user" size={24} color={pallete.onPrimary} />
@@ -175,11 +144,9 @@ const Routes = () => {
                          ),
                     }}
 
-                    component={SignIn}
+                    component={User}
 
                />
-
-
 
                {/* <Bottom.Screen name='Tutorial' component={Tutorial} /> */}
           </Bottom.Navigator>
@@ -190,8 +157,7 @@ const Routes = () => {
 
 
 
-
-function AppRoutes() {
+function AuthRoutes() {
      const theme = useTheme()
 
 
@@ -213,13 +179,12 @@ function AppRoutes() {
                <Stack.Screen name='Splash' component={Splash} /> */}
 
                <Stack.Screen
-                    name='App'
+                    name='Auth'
                     component={Routes}
                />
-
 
           </Stack.Navigator>
      )
 }
 
-export { AppRoutes }
+export { AuthRoutes }

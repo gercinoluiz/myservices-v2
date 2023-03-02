@@ -34,7 +34,7 @@ const DetailedLocationProvider: React.FC <AppProviderProps>= ({ children }) => {
                name: '',
                type: '',
                secretarias: [{ name: '', services: [''] }],
-               services:[{workingTime:[{weekDay:'', hours:[{end:'', start:''}]}],service:{_id:'', active:false, isOnline:false,name: '', serviceType:{active:false, name:'',id:''}}}] ,
+               services:[{name:'',workingTime:[{weekDay:'', hours:[{end:'', start:''}]}],service:{_id:'', active:false, isOnline:false,name: '', serviceType:{active:false, name:'',id:''}}}] ,
                workingTime: [{hours:{end:'',start:''}, weekDay:''}],
                imagesUrl: [{ url: '', descricao: '' }],
           })

@@ -1,17 +1,18 @@
 import React from 'react';
-import { Image, Text, View } from "react-native";
+
 import { ScrollView } from 'react-native-gesture-handler';
 import logoPrefeitura from '../../assets/logoPrefeitura.png';
 import GooglePlacesInput from '../../components/GooglePlacesInput';
 
-import prodamparavoce from '../../assets/prodamparavoce.png'
+import image from './image.png'
 
 import pallete from '../../style/pallete';
 
 
 
 
-import {Container, DescriptionView, Logo, TextParagraph} from './styles'
+
+import { Center, Flex, Image, Text } from 'native-base';
 
 
 
@@ -32,28 +33,27 @@ const About: React.FC<AboutProps> = () => {
 
 
 
-        <Container>
+        <Center flex={1}  bg='#fff'>
                 
                 {/* <GooglePlacesInput/> */}
 
             
 
-                <DescriptionView>
+                
 
-                    <TextParagraph>
-                        Com o aplicativo <Text style={{fontWeight:'bold', color:pallete.primary}}>AquiSP</Text>  você encontra um local que atenda o serviço de sua procura.  É simples, basta clicar no ícone de filtro (laranja), no canto inferior direito da página de busca, e escolher o serviço que deseja realizar.
-                    </TextParagraph>
+              
 
-                    <Logo source={prodamparavoce}/>
+                    <Image alt="Entrar" w='80%'  h='40%' resizeMode="contain" source={image}  />
 
                     
-                </DescriptionView>
 
-
+                    <Text fontSize={'lg'} ml='2' w='80%'>
+                        Com o aplicativo <Text style={{fontWeight:'bold', color:pallete.primary}}>AquiSP</Text>  você encontra um local que atenda o serviço de sua procura.  É simples, basta clicar no ícone de filtro (laranja), no canto inferior direito da página de busca, e escolher o serviço que deseja realizar.
+                    </Text>
         
 
             
-        </Container >
+        </Center >
 
 
 
